@@ -1,0 +1,15 @@
+.card {
+  border-radius: 25px;
+}
+
+.address-form-wrapper {
+  display: flex;
+  align-content: space-evenly;
+  flex-wrap: wrap;
+  row-gap: 10px;
+  column-gap: 20px;
+
+  .address-form {
+    flex-grow: 1;
+  }
+}

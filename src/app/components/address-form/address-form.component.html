@@ -1,0 +1,101 @@
+<mat-card [formGroup]="addressForm" class="card" appearance="outlined">
+  <mat-card-content class="address-form-wrapper">
+    <mat-form-field class="address-form" appearance="fill">
+      <mat-label>Name</mat-label>
+      <input
+        [formControl]="addressForm.controls.addressee"
+        matInput
+        placeholder="Sherlock Holmes"
+      />
+      <mat-icon matSuffix>person</mat-icon>
+      @if (addressForm.controls.addressee.hasError('pattern')) {
+      <mat-error>Please enter a valid addressee</mat-error>
+      } @if (addressForm.controls.addressee.hasError('required')) {
+      <mat-error>Addressee is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="address-form" appearance="fill">
+      <mat-label>Street 1</mat-label>
+      <input
+        [formControl]="addressForm.controls.street1"
+        matInput
+        placeholder="221B Baker Street"
+      />
+      <mat-icon matSuffix>home</mat-icon>
+      @if (addressForm.controls.street1.hasError('minLength')) {
+      <mat-error>Street 1 must be longer than 3 characters</mat-error>
+      } @if (addressForm.controls.street1.hasError('maxLength')) {
+      <mat-error>Street 1 cannot be longer than 100 characters</mat-error>
+      } @if (addressForm.controls.street1.hasError('required')) {
+      <mat-error>Addressee is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="address-form no-icon" appearance="fill">
+      <mat-label>Street 2</mat-label>
+      <input
+        [formControl]="addressForm.controls.street2"
+        matInput
+        placeholder="Marylebone"
+      />
+      <mat-icon matSuffix>none</mat-icon>
+      @if (addressForm.controls.street2.hasError('maxLength')) {
+      <mat-error>Street 2 cannot be longer than 100 characters</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="address-form" appearance="fill">
+      <mat-label>Town</mat-label>
+      <input
+        [formControl]="addressForm.controls.town"
+        matInput
+        placeholder="London"
+      />
+      <mat-icon matSuffix>location_city</mat-icon>
+      @if (addressForm.controls.town.hasError('minLength')) {
+      <mat-error>Town must be longer than 3 characters</mat-error>
+      } @if (addressForm.controls.town.hasError('maxLength')) {
+      <mat-error>Town cannot be longer than 100 characters</mat-error>
+      } @if (addressForm.controls.town.hasError('required')) {
+      <mat-error>Town is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="address-form no-icon" appearance="fill">
+      <mat-label>County</mat-label>
+      <input
+        [formControl]="addressForm.controls.county"
+        matInput
+        placeholder="Greater London"
+      />
+      <mat-icon matSuffix>none</mat-icon>
+      @if (addressForm.controls.county.hasError('maxLength')) {
+      <mat-error>Town cannot be longer than 100 characters</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="address-form no-icon" appearance="fill">
+      <mat-label>Post Code</mat-label>
+      <input
+        [formControl]="addressForm.controls.postcode"
+        matInput
+        placeholder="NW1 6XE"
+      />
+      <mat-icon matSuffix>mail</mat-icon>
+      @if (addressForm.controls.postcode.hasError('invalidPostcode')) {
+      <mat-error>Postcodeis invalid</mat-error>
+      } @if (addressForm.controls.postcode.hasError('maxLength')) {
+      <mat-error>Postcode cannot be longer than 10 characters</mat-error>
+      } @if (addressForm.controls.postcode.hasError('required')) {
+      <mat-error>Postcode is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions>
+    <button (click)="submitAddress()" mat-flat-button>Submit</button>
+    <a *ngIf="addressId" mat-button routerLink="/read-address/{{ addressId }}"
+      >View Address</a
+    >
+  </mat-card-actions>
+</mat-card>

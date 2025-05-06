@@ -1,0 +1,19 @@
+.flex {
+  display: flex;
+
+  align-content: space-evenly;
+  flex-wrap: wrap;
+  row-gap: 10px;
+  column-gap: 20px;
+
+  .address-list,
+  .address-display {
+    flex-grow: 1;
+    margin: 10px;
+  }
+}
+
+.address-line {
+  display: flex;
+  justify-content: space-between;
+}

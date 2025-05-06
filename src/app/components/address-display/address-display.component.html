@@ -1,0 +1,68 @@
+<div class="flex">
+  <mat-card class="address-list" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title> Entered Addresses </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      @if((guids$ | async)?.length != 0){
+      <form [formGroup]="addressListForm">
+        <mat-selection-list
+          #guidList
+          formControlName="guidControl"
+          name="shoes"
+          [multiple]="false"
+        >
+          @for (guid of (guids$ | async); track $index) {
+          <mat-list-option [value]="guid">{{ guid }}</mat-list-option>
+          }
+        </mat-selection-list>
+      </form>
+      } @else {
+      <p>Nothing to display!</p>
+      }
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card
+    class="address-display"
+    *ngIf="displayedAddress"
+    appearance="outlined"
+  >
+    <mat-card-header>
+      <mat-card-title> Display Address </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="address-line">
+        <span class="address-line-title">Name:</span
+        ><span class="address-line-value">{{ displayedAddress.name }}</span>
+      </div>
+
+      <div class="address-line">
+        <span class="address-line-title">Street 1:</span
+        ><span class="address-line-value">{{ displayedAddress.street1 }}</span>
+      </div>
+      <div class="address-line">
+        <span class="address-line-title">Street 2:</span
+        ><span class="address-line-value">{{ displayedAddress.street2 }}</span>
+      </div>
+
+      <div class="address-line">
+        <span class="address-line-title">Town:</span
+        ><span class="address-line-value">{{ displayedAddress.town }}</span>
+      </div>
+
+      <div class="address-line">
+        <span class="address-line-title">County:</span
+        ><span class="address-line-value">{{ displayedAddress.county }}</span>
+      </div>
+
+      <div class="address-line">
+        <span class="address-line-title">Post Code:</span
+        ><span class="address-line-value">{{ displayedAddress.postcode }}</span>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <a [href]="googleMapsUrl" mat-button>Google Maps</a>
+    </mat-card-actions>
+  </mat-card>
+</div>
