@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AddressService } from '@shared-services/address-form.service';
+import { AddressApiService } from '@shared-services/address-api.service';
 import { PostcodeCheckerService } from '@shared-services/postcode-checker.service';
 import { addGuid } from '@states/guid/guid.actions';
 import { of } from 'rxjs';
@@ -10,7 +10,7 @@ import { AddressFormComponent } from './address-form.component';
 describe('AddressFormComponent', () => {
   let component: AddressFormComponent;
   let fixture: ComponentFixture<AddressFormComponent>;
-  let addressServiceSpy: jasmine.SpyObj<AddressService>;
+  let addressServiceSpy: jasmine.SpyObj<AddressApiService>;
   let postcodeServiceSpy: jasmine.SpyObj<PostcodeCheckerService>;
   let storeSpy: jasmine.SpyObj<Store>;
 
@@ -28,7 +28,7 @@ describe('AddressFormComponent', () => {
       declarations: [],
       imports: [ReactiveFormsModule, AddressFormComponent],
       providers: [
-        { provide: AddressService, useValue: addressServiceSpy },
+        { provide: AddressApiService, useValue: addressServiceSpy },
         { provide: PostcodeCheckerService, useValue: postcodeServiceSpy },
         { provide: Store, useValue: storeSpy },
       ],

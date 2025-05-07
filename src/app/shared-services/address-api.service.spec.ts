@@ -3,27 +3,27 @@ import {
   HttpTestingController,
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
-import { AddressService } from './address-form.service';
+import { AddressApiService } from './address-api.service';
 
 import { CreateAddressResponse } from '@internal-types/api/CreateAddress';
 import { ReadAddressResponse } from '@internal-types/api/ReadAddress';
 import { provideHttpClient } from '@angular/common/http';
 
 describe('AddressService', () => {
-  let service: AddressService;
+  let service: AddressApiService;
   let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [],
       providers: [
-        AddressService,
+        AddressApiService,
         provideHttpClient(),
         provideHttpClientTesting(),
       ],
     });
 
-    service = TestBed.inject(AddressService);
+    service = TestBed.inject(AddressApiService);
     httpMock = TestBed.inject(HttpTestingController);
   });
 

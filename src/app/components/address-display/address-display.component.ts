@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ReadAddressResponse } from '@internal-types/api/ReadAddress';
-import { AddressService } from '@shared-services/address-form.service';
+import { AddressApiService } from '@shared-services/address-api.service';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { filter, map, Observable, switchMap } from 'rxjs';
@@ -60,7 +60,7 @@ export class AddressDisplayComponent {
   public guids$!: Observable<string[]>;
 
   constructor(
-    private _addressService: AddressService,
+    private _addressService: AddressApiService,
     private sanitizer: DomSanitizer,
     private store: Store<AppState>
   ) {

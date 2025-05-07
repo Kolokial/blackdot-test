@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AddressDisplayComponent } from './address-display.component';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { AddressService } from '@shared-services/address-form.service';
+import { AddressApiService } from '@shared-services/address-api.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -53,7 +53,7 @@ describe('AddressDisplayComponent', () => {
       declarations: [],
       providers: [
         { provide: Store, useValue: mockStore },
-        { provide: AddressService, useValue: mockAddressService },
+        { provide: AddressApiService, useValue: mockAddressService },
         {
           provide: ActivatedRoute,
           useValue: { paramMap: of({ get: () => '123' }) },

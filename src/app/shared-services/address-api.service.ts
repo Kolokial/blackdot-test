@@ -10,7 +10,7 @@ import { ReadAddressResponse } from '@internal-types/api/ReadAddress';
 @Injectable({
   providedIn: 'root',
 })
-export class AddressService {
+export class AddressApiService {
   constructor(private _http: HttpClient) {}
 
   public createAddress(

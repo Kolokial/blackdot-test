@@ -15,7 +15,7 @@ import {
 } from '@angular/forms';
 import { AddressForm } from '../../types/form/AddressForm';
 import { CommonModule } from '@angular/common';
-import { AddressService } from '@shared-services/address-form.service';
+import { AddressApiService } from '@shared-services/address-api.service';
 import { PostcodeCheckerService } from '@shared-services/postcode-checker.service';
 import { map, Observable, of, switchMap, timer } from 'rxjs';
 import { HttpStatusCode } from '@angular/common/http';
@@ -101,7 +101,7 @@ export class AddressFormComponent {
   }
 
   constructor(
-    private _addressService: AddressService,
+    private _addressService: AddressApiService,
     private _postCodeService: PostcodeCheckerService,
     private _store: Store<{ addresses: string[] }>
   ) {}
