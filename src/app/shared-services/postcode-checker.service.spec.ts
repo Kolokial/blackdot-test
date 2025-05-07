@@ -6,7 +6,6 @@ import {
 import { PostcodeCheckerService } from './postcode-checker.service';
 import { HttpStatusCode, provideHttpClient } from '@angular/common/http';
 import { PostcodeApiResponse } from '../types/postcodes.io/PostcodeApiResponse';
-import { of } from 'rxjs';
 
 describe('PostcodeCheckerService', () => {
   let service: PostcodeCheckerService;

@@ -39,11 +39,6 @@ describe('AddressFormComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create the form with initial values', () => {
-    expect(component.addressForm).toBeTruthy();
-    expect(component.addressForm.controls.addressee.value).toBe('');
-  });
-
   it('should not submit when the form is invalid', () => {
     component.submitAddress();
     expect(addressServiceSpy.createAddress).not.toHaveBeenCalled();

@@ -1,3 +1,5 @@
+@use "@angular/material" as mat;
+
 .card {
   border-radius: 25px;
 }
@@ -12,4 +14,16 @@
   .address-form {
     flex-grow: 1;
   }
+}
+
+.check {
+  color: #43cf43;
+}
+
+button {
+  @include mat.progress-spinner-overrides(
+    (
+      active-indicator-color: white,
+    )
+  );
 }

@@ -22,6 +22,7 @@ import { HttpStatusCode } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { addGuid } from '@states/guid/guid.actions';
 import { RouterLink } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-address-form',
@@ -34,6 +35,7 @@ import { RouterLink } from '@angular/router';
     MatCardModule,
     MatButtonModule,
     ReactiveFormsModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './address-form.component.html',
   styleUrl: './address-form.component.scss',
@@ -100,6 +102,8 @@ export class AddressFormComponent {
     return this.addressForm.controls.postcode.value;
   }
 
+  public isLoading: boolean = false;
+
   constructor(
     private _addressService: AddressApiService,
     private _postCodeService: PostcodeCheckerService,
@@ -110,7 +114,7 @@ export class AddressFormComponent {
     if (this.addressForm.invalid) {
       return;
     }
-
+    this.isLoading = true;
     this._addressService
       .createAddress(
         this._name,
@@ -123,6 +127,7 @@ export class AddressFormComponent {
       .subscribe((x) => {
         this.addressId = x.addressId;
         this._store.dispatch(addGuid({ guid: x.addressId }));
+        this.isLoading = false;
       });
   }
 

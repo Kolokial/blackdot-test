@@ -93,9 +93,18 @@
     </mat-form-field>
   </mat-card-content>
   <mat-card-actions>
-    <button (click)="submitAddress()" mat-flat-button>Submit</button>
+    <button
+      [disabled]="this.addressForm.invalid"
+      (click)="submitAddress()"
+      mat-flat-button
+    >
+      @if (isLoading) {
+      <mat-spinner diameter="30" color="#fff"></mat-spinner>
+      } @else { Submit }
+    </button>
     <a *ngIf="addressId" mat-button routerLink="/read-address/{{ addressId }}"
-      >View Address</a
+      ><mat-icon class="check" inline="true">check_circle</mat-icon>View
+      Address</a
     >
   </mat-card-actions>
 </mat-card>
