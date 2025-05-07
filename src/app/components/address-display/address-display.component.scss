@@ -17,3 +17,40 @@
   display: flex;
   justify-content: space-between;
 }
+
+.guid-info {
+  mat-card-title {
+    mat-icon.rotate {
+      transform: scale(1.5) rotate(180deg);
+    }
+  }
+}
+
+.guid-info,
+.guid-warning {
+  padding: 12px;
+  width: fit-content;
+  margin: auto;
+  text-align: center;
+  mat-card-title {
+    mat-icon {
+      transform: scale(1.5);
+    }
+
+    mat-icon,
+    span {
+      display: block;
+      margin-top: 10px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 0px;
+    }
+  }
+
+  mat-card-subtitle {
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0px;
+  }
+}

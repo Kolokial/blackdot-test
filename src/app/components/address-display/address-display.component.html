@@ -1,10 +1,29 @@
 <div class="flex">
+  @if (invalidGuid.length > 0) {
+  <mat-card class="guid-warning">
+    <mat-card-title
+      ><mat-icon>warning</mat-icon
+      ><span>Could not find that address!</span></mat-card-title
+    >
+    <mat-card-subtitle
+      >"{{ invalidGuid }}" isn't in your address book.</mat-card-subtitle
+    >
+  </mat-card>
+  } @else if((guids$ | async)?.length == 0) {
+  <mat-card class="guid-info">
+    <mat-card-title
+      ><mat-icon class="rotate">error</mat-icon
+      ><span>Empty address book!</span></mat-card-title
+    >
+    <mat-card-subtitle>No addresses submitted yet.</mat-card-subtitle>
+  </mat-card>
+  } @else if((guids$ | async) != null){
   <mat-card class="address-list" appearance="outlined">
     <mat-card-header>
       <mat-card-title> Entered Addresses </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      @if((guids$ | async)?.length != 0){
+      @if((guids$ | async)?.length != 0) {
       <form [formGroup]="addressListForm">
         <mat-selection-list
           #guidList
@@ -18,10 +37,11 @@
         </mat-selection-list>
       </form>
       } @else {
-      <p>Nothing to display!</p>
+      <p>Address list empty!</p>
       }
     </mat-card-content>
   </mat-card>
+  }
 
   <mat-card
     class="address-display"

@@ -4,7 +4,7 @@ import { ReadAddressResponse } from '@internal-types/api/ReadAddress';
 import { AddressApiService } from '@shared-services/address-api.service';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { filter, map, Observable, switchMap } from 'rxjs';
+import { filter, map, Observable, switchMap, tap } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {
@@ -58,6 +58,7 @@ export class AddressDisplayComponent {
 
   public googleMapsUrl!: SafeUrl;
   public guids$!: Observable<string[]>;
+  public invalidGuid: string = '';
 
   constructor(
     private _addressService: AddressApiService,
@@ -83,30 +84,37 @@ export class AddressDisplayComponent {
   }
 
   private subscribeToGuidObservable(guidObservable: Observable<string>): void {
+    let addressId: string;
     guidObservable
       .pipe(
+        tap((tappedAddressId) => (addressId = tappedAddressId)),
         switchMap((addressId: string) =>
           this._addressService.readAddress(addressId)
         )
       )
-      .subscribe((address: ReadAddressResponse) => {
-        this.displayedAddress = {
-          addressId: address.addressId,
-          name: address.addressee,
-          street1: address.street1,
-          street2: address.street2,
-          town: address.town,
-          county: address.county,
-          postcode: address.postcode,
-        };
+      .subscribe({
+        next: (address: ReadAddressResponse) => {
+          this.displayedAddress = {
+            addressId: address.addressId,
+            name: address.addressee,
+            street1: address.street1,
+            street2: address.street2,
+            town: address.town,
+            county: address.county,
+            postcode: address.postcode,
+          };
 
-        this.buildGoogleMapsUrl(
-          this.displayedAddress.street1,
-          this.displayedAddress.street2,
-          this.displayedAddress.town,
-          this.displayedAddress.county,
-          this.displayedAddress.postcode
-        );
+          this.buildGoogleMapsUrl(
+            this.displayedAddress.street1,
+            this.displayedAddress.street2,
+            this.displayedAddress.town,
+            this.displayedAddress.county,
+            this.displayedAddress.postcode
+          );
+        },
+        error: (error) => {
+          this.invalidGuid = addressId;
+        },
       });
   }
 

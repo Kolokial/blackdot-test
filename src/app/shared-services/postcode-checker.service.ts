@@ -23,7 +23,9 @@ export class PostcodeCheckerService {
       );
   }
 
-  public fallbackValidation(postcode: string): Observable<PostcodeApiResponse> {
+  private fallbackValidation(
+    postcode: string
+  ): Observable<PostcodeApiResponse> {
     const regex = new RegExp(/^[a-z]{1,2}\d[a-z\d]?\s*\d[a-z]{2}$/i);
     const result = postcode.match(regex);
 

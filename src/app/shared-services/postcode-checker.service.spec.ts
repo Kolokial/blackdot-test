@@ -50,10 +50,6 @@ describe('PostcodeCheckerService', () => {
     const mockPostcode = 'INVALID1';
     const mockErrorResponse = {
       status: HttpStatusCode.NotFound,
-      error: {
-        status: HttpStatusCode.NotFound,
-        message: 'Postcode not found',
-      },
     };
 
     service.lookup(mockPostcode).subscribe((response) => {
@@ -67,16 +63,31 @@ describe('PostcodeCheckerService', () => {
     req.flush(mockErrorResponse, { status: 404, statusText: 'Not Found' });
   });
 
-  it('should fallback to regex validation when API fails', () => {
+  it('should fallback to regex validation when API fails and fail', () => {
     const invalidPostcode = 'INVALID1';
 
-    service.fallbackValidation(invalidPostcode).subscribe((response) => {
+    service.lookup(invalidPostcode).subscribe((response) => {
       expect(response.status).toBe(HttpStatusCode.NotFound);
     });
 
-    const validPostcode = 'EC1A 1BB';
-    service.fallbackValidation(validPostcode).subscribe((response) => {
+    const req = httpMock.expectOne(
+      `https://api.postcodes.io/postcodes/${invalidPostcode}`
+    );
+    expect(req.request.method).toBe('GET');
+    req.error(new ProgressEvent('Network Error!'));
+  });
+
+  it('should fallback to regex validation when API fails and succeed', () => {
+    const invalidPostcode = 'IP3 9TS';
+
+    service.lookup(invalidPostcode).subscribe((response) => {
       expect(response.status).toBe(HttpStatusCode.Ok);
     });
+
+    const req = httpMock.expectOne(
+      `https://api.postcodes.io/postcodes/${invalidPostcode}`
+    );
+    expect(req.request.method).toBe('GET');
+    req.error(new ProgressEvent('Network Error!'));
   });
 });
